@@ -1,9 +1,9 @@
 package hashtables;
 
 public class Employee {
-	String firstName;
-	String lastName;
-	int id;
+	private String firstName;
+	private String lastName;
+	private int id;
 
 	public Employee(String firstName, String lastName, int id){
 		this.firstName = firstName;
