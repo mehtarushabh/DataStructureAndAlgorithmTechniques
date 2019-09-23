@@ -1,8 +1,9 @@
 package utils;
 
 /*
- * @author: Rushabh
+ * @author: Rushabh Mehta
  * */
+
 public class ArraySortingUtilities {
 
 	private final int[] originalInput;
@@ -14,8 +15,7 @@ public class ArraySortingUtilities {
 	}
 
 	public void printArray() {
-		for (int i = 0; i < this.inputArray.length; i++)
-			System.out.println(this.inputArray[i]);
+		for (int value : this.inputArray) System.out.println(value);
 	}
 
 	public void resetInput() {

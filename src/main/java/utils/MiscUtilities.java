@@ -1,23 +1,20 @@
 package utils;
 
 import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.time.LocalDate;
 import java.util.LinkedList;
-import java.util.List;
+
+/*
+ * @author: Rushabh Mehta
+ * */
 
 public class MiscUtilities {
-
-
-	List<Integer> a = new ArrayList<>();
-	Iterator<Integer> aaa = a.iterator();
 
 	public int factorial(int n) {
 		if (n == 0)
 			return 1;
 		return n * factorial(n - 1);
 	}
-
 
 	public void rotate(int input[], int numberOfRotations) {
 		for (int i = 0; i < numberOfRotations; i++) {
@@ -28,7 +25,6 @@ public class MiscUtilities {
 		}
 	}
 
-
 	public LinkedList findPrimeFactors(String number) {
 		BigInteger input = new BigInteger(number);
 
@@ -37,12 +33,9 @@ public class MiscUtilities {
 
 		LinkedList primeFactors = new LinkedList();
 
-
-
 		while (input.mod(BigInteger.valueOf(2)).equals(BigInteger.ZERO)) {
 			primeFactors.add(BigInteger.valueOf(2));
 			System.out.print(BigInteger.valueOf(2) + ",");
-
 			input = input.divide(BigInteger.valueOf(2));
 		}
 
@@ -62,5 +55,37 @@ public class MiscUtilities {
 		return primeFactors;
 	}
 
+	//leetcode 1185
+	public String dayOfTheWeek(int day, int month, int year) {
+		LocalDate date = LocalDate.of(year, month, day);
+		switch (date.getDayOfWeek().toString()) {
+			case "SUNDAY":
+				return "Sunday";
+			case "MONDAY":
+				return "Monday";
+			case "TUESDAY":
+				return "Tuesday";
+			case "WEDNESDAY":
+				return "Wednesday";
+			case "THURSDAY":
+				return "Thursday";
+			case "FRIDAY":
+				return "Friday";
+			case "SATURDAY":
+				return "Saturday";
+			default:
+				return null;
+		}
+	}
 
+
+	private int fibonacci(int n) {
+		if (n <= 1)
+			return n;
+		return fibonacci(n - 1) + fibonacci(n - 2);
+	}
+
+	public int countWays(int n) {
+		return fibonacci(n + 1);
+	}
 }

@@ -1,5 +1,9 @@
 package utils;
 
+/*
+ * @author: Rushabh Mehta
+ * */
+
 public class BinarySearchTree {
 	private int nodeData;
 	private BinarySearchTree leftChild;
@@ -11,69 +15,46 @@ public class BinarySearchTree {
 		this.rightChild = null;
 	}
 
-	public int getNodeData() {
-		return nodeData;
-	}
-
-	public void setNodeData(int nodeData) {
-		this.nodeData = nodeData;
-	}
-
-	public BinarySearchTree getLeftChild() {
-		return leftChild;
-	}
-
-	public void setLeftChild(BinarySearchTree leftChild) {
-		this.leftChild = leftChild;
-	}
-
-	public BinarySearchTree getRightChild() {
-		return rightChild;
-	}
-
-	public void setRightChild(BinarySearchTree rightChild) {
-		this.rightChild = rightChild;
-	}
 
 	public void insertNode(int nodeValue) {
-		if (nodeValue == getNodeData())
+		if (nodeValue == nodeData)
 			return;
 
-		if (nodeValue < getNodeData()) {
-			if (getLeftChild() == null)
-				setLeftChild(new BinarySearchTree(nodeValue));
+		if (nodeValue < nodeData) {
+			if (leftChild == null)
+				leftChild = new BinarySearchTree(nodeValue);
 			else
-				getLeftChild().insertNode(nodeValue);
+				leftChild.insertNode(nodeValue);
 		} else {
-			if (getRightChild() == null)
-				setRightChild(new BinarySearchTree(nodeValue));
+			if (rightChild == null)
+				rightChild = new BinarySearchTree(nodeValue);
 			else
-				getRightChild().insertNode(nodeValue);
+				rightChild.insertNode(nodeValue);
 		}
 	}
 
 	public int getMinimunVale() {
-		if (getLeftChild() == null)
-			return getNodeData();
+		if (leftChild == null)
+			return nodeData;
 		else
-			return getLeftChild().getMinimunVale();
+			return leftChild.getMinimunVale();
 	}
 
 	public int getMaximumvalue() {
-		if (getRightChild() == null)
-			return getNodeData();
+		if (rightChild == null)
+			return nodeData;
 		else
-			return getRightChild().getMaximumvalue();
+			return rightChild.getMaximumvalue();
 	}
 
 	public BinarySearchTree getNodeFromValue(int value) {
-		if (value == getNodeData())
+		if (value == nodeData)
 			return this;
 
-		if (value < getNodeData() && getLeftChild() != null)
-			return getLeftChild().getNodeFromValue(value);
-		else if (value > getNodeData() && getRightChild() != null)
-			return getRightChild().getNodeFromValue(value);
+		if (value < nodeData && leftChild != null)
+			return leftChild.getNodeFromValue(value);
+		else if (value > nodeData && rightChild != null)
+			return rightChild.getNodeFromValue(value);
 		else
 			return null;
 	}
@@ -83,46 +64,45 @@ public class BinarySearchTree {
 	}
 
 	public void traverseInOrder() {
-		if (getLeftChild() != null)
-			getLeftChild().traverseInOrder();
-		System.out.print(getNodeData() + ", ");
-		if (getRightChild() != null)
-			getRightChild().traverseInOrder();
+		if (leftChild != null)
+			leftChild.traverseInOrder();
+		System.out.print(nodeData + ", ");
+		if (rightChild != null)
+			rightChild.traverseInOrder();
 	}
 
 	public void traversePreOrder() {
-		System.out.print(getNodeData() + ", ");
-		if (getLeftChild() != null)
-			getLeftChild().traversePreOrder();
-		if (getRightChild() != null)
-			getRightChild().traversePreOrder();
+		System.out.print(nodeData + ", ");
+		if (leftChild != null)
+			leftChild.traversePreOrder();
+		if (rightChild != null)
+			rightChild.traversePreOrder();
 	}
 
 	public void traversePostOrder() {
-		if (getLeftChild() != null)
-			getLeftChild().traversePostOrder();
-		if (getRightChild() != null)
-			getRightChild().traversePostOrder();
-		System.out.print(getNodeData() + ", ");
+		if (leftChild != null)
+			leftChild.traversePostOrder();
+		if (rightChild != null)
+			rightChild.traversePostOrder();
+		System.out.print(nodeData + ", ");
 	}
 
 	private BinarySearchTree deleteNode(BinarySearchTree subTreeRoot, int value) {
 		if (subTreeRoot == null)
 			return subTreeRoot;
 
-		if (value < subTreeRoot.getNodeData())
-			subTreeRoot.setLeftChild(deleteNode(subTreeRoot.getLeftChild(), value));
-		else if (value > subTreeRoot.getNodeData())
-			subTreeRoot.setRightChild(deleteNode(subTreeRoot.getRightChild(), value));
+		if (value < subTreeRoot.nodeData)
+			subTreeRoot.leftChild = deleteNode(subTreeRoot.leftChild, value);
+		else if (value > subTreeRoot.nodeData)
+			subTreeRoot.rightChild = deleteNode(subTreeRoot.rightChild, value);
 		else {
-			if (subTreeRoot.getLeftChild() == null)
-				return subTreeRoot.getRightChild();
-			else if (subTreeRoot.getRightChild() == null)
-				return subTreeRoot.getLeftChild();
-			setNodeData(getRightChild().getMinimunVale());
-			setRightChild(deleteNode(getRightChild(), getNodeData()));
+			if (subTreeRoot.leftChild == null)
+				return subTreeRoot.rightChild;
+			else if (subTreeRoot.rightChild == null)
+				return subTreeRoot.leftChild;
+			nodeData = rightChild.getMinimunVale();
+			rightChild = deleteNode(rightChild, nodeData);
 		}
 		return subTreeRoot;
 	}
-
 }

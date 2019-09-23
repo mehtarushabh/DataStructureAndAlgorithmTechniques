@@ -3,21 +3,23 @@ package utils;
 import java.util.*;
 
 /*
- * @author: Rushabh
+ * @author: Rushabh Mehta
+ * This Integer list skip iterator is am implementation of the Iterator interface
+ * but this iterator has a condition. The conditionArray contains a set of integers whos values will be skipped
+ * as the iterator iterates through the list.
  * */
 
 public class IntegerListSkipIterator implements Iterator {
-	private final Map<Integer, Integer> conditionArrayFrequencyMap;
 	private final List<Integer> listToIterate;
 	private int counter;
 	private Integer lastReturn;
+	private final Map<Integer, Integer> conditionArrayFrequencyMap;
 
 	public IntegerListSkipIterator(List<Integer> listToIterate, int[] conditionArray) {
-		this.conditionArrayFrequencyMap = new HashMap<>();
 		this.listToIterate = listToIterate;
 		this.counter = 0;
 		this.lastReturn = null;
-
+		this.conditionArrayFrequencyMap = new HashMap<>();
 		for (int value : conditionArray) {
 			if (this.conditionArrayFrequencyMap.containsKey(value))
 				this.conditionArrayFrequencyMap.put(value, this.conditionArrayFrequencyMap.get(value) + 1);
@@ -55,6 +57,6 @@ public class IntegerListSkipIterator implements Iterator {
 			counter++;
 			return lastReturn;
 		} else
-			throw new NoSuchElementException();
+			throw new NoSuchElementException("End of List Reached");
 	}
 }

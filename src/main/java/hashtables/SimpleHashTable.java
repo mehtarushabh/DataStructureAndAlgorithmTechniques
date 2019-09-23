@@ -1,5 +1,10 @@
 package hashtables;
 
+/*
+ * @author: Rushabh
+ *
+ * */
+
 public class SimpleHashTable {
 
 	private Employee[] hashTable;
