@@ -10,7 +10,7 @@ import java.util.LinkedList;
 
 public class MiscUtilities {
 
-	public int factorial(int n) {
+	private int factorial(int n) {
 		if (n == 0)
 			return 1;
 		return n * factorial(n - 1);
@@ -88,4 +88,26 @@ public class MiscUtilities {
 	public int countWays(int n) {
 		return fibonacci(n + 1);
 	}
+
+	public void a() {
+
+
+	}
+
+	//leetcode 96
+	public int numTrees(int n) {
+		int[] count = new int[n + 1];
+
+		count[0] = 1;
+		count[1] = 1;
+
+		for (int i = 2; i <= n; i++) {
+			for (int j = 0; j <= i - 1; j++) {
+				count[i] = count[i] + count[j] * count[i - j - 1];
+			}
+		}
+
+		return count[n];
+	}
+
 }
