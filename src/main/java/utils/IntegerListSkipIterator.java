@@ -11,9 +11,9 @@ import java.util.*;
 
 public class IntegerListSkipIterator implements Iterator {
 	private final List<Integer> listToIterate;
+	private final Map<Integer, Integer> conditionArrayFrequencyMap;
 	private int counter;
 	private Integer lastReturn;
-	private final Map<Integer, Integer> conditionArrayFrequencyMap;
 
 	public IntegerListSkipIterator(List<Integer> listToIterate, int[] conditionArray) {
 		this.listToIterate = listToIterate;

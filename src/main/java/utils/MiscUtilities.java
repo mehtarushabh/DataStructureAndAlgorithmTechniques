@@ -2,7 +2,7 @@ package utils;
 
 import java.math.BigInteger;
 import java.time.LocalDate;
-import java.util.LinkedList;
+import java.util.*;
 
 /*
  * @author: Rushabh Mehta
@@ -11,15 +11,15 @@ import java.util.LinkedList;
 public class MiscUtilities {
 
 	private int factorial(int n) {
-		if (n == 0)
+		if(n == 0)
 			return 1;
 		return n * factorial(n - 1);
 	}
 
 	public void rotate(int input[], int numberOfRotations) {
-		for (int i = 0; i < numberOfRotations; i++) {
+		for(int i = 0; i < numberOfRotations; i++) {
 			int temp = input[input.length - 1];
-			for (int j = input.length - 1; j > 0; j--)
+			for(int j = input.length - 1; j > 0; j--)
 				input[j] = input[j - 1];
 			input[0] = temp;
 		}
@@ -28,21 +28,21 @@ public class MiscUtilities {
 	public LinkedList findPrimeFactors(String number) {
 		BigInteger input = new BigInteger(number);
 
-		if (input.compareTo(BigInteger.valueOf(2)) < 0)
+		if(input.compareTo(BigInteger.valueOf(2)) < 0)
 			throw new IllegalArgumentException("Number must be greater than 1.");
 
 		LinkedList primeFactors = new LinkedList();
 
-		while (input.mod(BigInteger.valueOf(2)).equals(BigInteger.ZERO)) {
+		while(input.mod(BigInteger.valueOf(2)).equals(BigInteger.ZERO)) {
 			primeFactors.add(BigInteger.valueOf(2));
 			System.out.print(BigInteger.valueOf(2) + ",");
 			input = input.divide(BigInteger.valueOf(2));
 		}
 
-		if (input.compareTo(BigInteger.ONE) > 0) {
+		if(input.compareTo(BigInteger.ONE) > 0) {
 			BigInteger f = BigInteger.valueOf(3);
-			while (f.multiply(f).compareTo(input) <= 0) {
-				if (input.mod(f).equals(BigInteger.ZERO)) {
+			while(f.multiply(f).compareTo(input) <= 0) {
+				if(input.mod(f).equals(BigInteger.ZERO)) {
 					primeFactors.add(f);
 					System.out.print(f + ",");
 					input = input.divide(f);
@@ -58,7 +58,7 @@ public class MiscUtilities {
 	//leetcode 1185
 	public String dayOfTheWeek(int day, int month, int year) {
 		LocalDate date = LocalDate.of(year, month, day);
-		switch (date.getDayOfWeek().toString()) {
+		switch(date.getDayOfWeek().toString()) {
 			case "SUNDAY":
 				return "Sunday";
 			case "MONDAY":
@@ -80,7 +80,7 @@ public class MiscUtilities {
 
 
 	private int fibonacci(int n) {
-		if (n <= 1)
+		if(n <= 1)
 			return n;
 		return fibonacci(n - 1) + fibonacci(n - 2);
 	}
@@ -101,8 +101,8 @@ public class MiscUtilities {
 		count[0] = 1;
 		count[1] = 1;
 
-		for (int i = 2; i <= n; i++) {
-			for (int j = 0; j <= i - 1; j++) {
+		for(int i = 2; i <= n; i++) {
+			for(int j = 0; j <= i - 1; j++) {
 				count[i] = count[i] + count[j] * count[i - j - 1];
 			}
 		}
@@ -110,4 +110,145 @@ public class MiscUtilities {
 		return count[n];
 	}
 
+
+	public List<String> prioritizedOrders(int numOrders, List<String> orderList) {
+		List<String> answer = new ArrayList<>();
+
+		List<String> prime = new ArrayList<>();
+		List<String> nonPrime = new ArrayList<>();
+
+		for(String order : orderList) {
+			if(order.substring(order.indexOf(" ") + 1).matches("^ *[0-9][0-9 ]*$"))
+				nonPrime.add(order);
+			else
+				prime.add(order);
+		}
+
+		Map<String, String> primeOrdersMeta = new HashMap<>();
+		List<String> primeMeta = new ArrayList<>();
+
+		for(int i = 0; i < prime.size(); i++) {
+			primeOrdersMeta.put(prime.get(i).substring(prime.get(i).indexOf(" ") + 1), prime.get(i));
+			primeMeta.add(prime.get(i).substring(prime.get(i).indexOf(" ") + 1));
+		}
+		Collections.sort(primeMeta);
+		for(String m : primeMeta) {
+			if(primeOrdersMeta.containsKey(m)) {
+				answer.add(primeOrdersMeta.get(m));
+				prime.remove(prime.indexOf(primeOrdersMeta.get(m)));
+				primeOrdersMeta.remove(m);
+			} else {
+				for(int i = 0; i < prime.size(); i++) {
+					if(prime.get(i).contains(m)) {
+						answer.add(prime.get(i));
+					}
+
+				}
+			}
+
+		}
+		answer.addAll(nonPrime);
+		return answer;
+	}
+
+
+	//PayPal HackerRank
+	public int minMoves(List<Integer> a, List<Integer> m) {
+		int moves = 0;
+
+		List<Integer> aComplete = new ArrayList<>();
+		List<Integer> mComplete = new ArrayList<>();
+
+		for(int num : a) {
+			while(num > 0) {
+				aComplete.add(num % 10);
+				num = num / 10;
+			}
+		}
+		for(int num : m) {
+			while(num > 0) {
+				mComplete.add(num % 10);
+				num = num / 10;
+			}
+		}
+
+		for(int i = 0; i < mComplete.size(); i++) {
+			int diff = mComplete.get(i) - aComplete.get(i);
+			moves = moves + Math.abs(diff);
+		}
+
+		return moves;
+	}
+
+
+	//PayPal HackerRank
+	public List<String> doesCircleExist(List<String> commands) {
+		List<String> answer = new ArrayList<>();
+
+		int xCoordinate = 0;
+		int yCoordinate = 0;
+		String direction = "NORTH";
+
+		for(String command : commands) {
+			for(char step : command.toCharArray()) {
+				switch(direction) {
+					case "NORTH":
+						switch(step) {
+							case 'G': yCoordinate++;
+								break;
+							case 'L': direction = "WEST";
+								break;
+							case 'R': direction = "EAST";
+								break;
+						}
+						break;
+					case "EAST":
+						switch(step) {
+							case 'G':
+								xCoordinate++;
+								break;
+							case 'L':
+								direction = "NORTH";
+								break;
+							case 'R':
+								direction = "SOUTH";
+								break;
+						}
+						break;
+					case "SOUTH":
+						switch(step) {
+							case 'G':
+								yCoordinate--;
+								break;
+							case 'L':
+								direction = "EAST";
+								break;
+							case 'R':
+								direction = "WEST";
+								break;
+						}
+						break;
+					case "WEST":
+						switch(step) {
+							case 'G':
+								xCoordinate--;
+								break;
+							case 'L':
+								direction = "SOUTH";
+								break;
+							case 'R':
+								direction = "NORTH";
+								break;
+						}
+						break;
+				}
+			}
+
+			if(direction.equals("NORTH") && ((xCoordinate * xCoordinate) + (yCoordinate * yCoordinate) > 0))
+				answer.add("NO");
+			else
+				answer.add("YES");
+		}
+		return answer;
+	}
 }
