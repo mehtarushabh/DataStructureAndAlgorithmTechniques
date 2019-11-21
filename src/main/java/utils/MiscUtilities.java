@@ -184,71 +184,73 @@ public class MiscUtilities {
 	//PayPal HackerRank
 	public List<String> doesCircleExist(List<String> commands) {
 		List<String> answer = new ArrayList<>();
-
 		int xCoordinate = 0;
 		int yCoordinate = 0;
-		String direction = "NORTH";
+		String currentDirection = "NORTH";
+
 
 		for(String command : commands) {
-			for(char step : command.toCharArray()) {
-				switch(direction) {
+			for(char action : command.toCharArray()) {
+				switch(currentDirection) {
 					case "NORTH":
-						switch(step) {
+						switch(action) {
 							case 'G': yCoordinate++;
 								break;
-							case 'L': direction = "WEST";
+							case 'L': currentDirection = "WEST";
 								break;
-							case 'R': direction = "EAST";
+							case 'R': currentDirection = "EAST";
 								break;
+							default: System.out.println("Invalid Action");
 						}
 						break;
 					case "EAST":
-						switch(step) {
-							case 'G':
-								xCoordinate++;
+						switch(action) {
+							case 'G': xCoordinate++;
 								break;
-							case 'L':
-								direction = "NORTH";
+							case 'L': currentDirection = "NORTH";
 								break;
-							case 'R':
-								direction = "SOUTH";
+							case 'R': currentDirection = "SOUTH";
 								break;
+							default: System.out.println("Invalid Action");
 						}
 						break;
 					case "SOUTH":
-						switch(step) {
-							case 'G':
-								yCoordinate--;
+						switch(action) {
+							case 'G': yCoordinate--;
 								break;
-							case 'L':
-								direction = "EAST";
+							case 'L': currentDirection = "EAST";
 								break;
-							case 'R':
-								direction = "WEST";
+							case 'R': currentDirection = "WEST";
 								break;
+							default: System.out.println("Invalid Action");
 						}
 						break;
 					case "WEST":
-						switch(step) {
-							case 'G':
-								xCoordinate--;
+						switch(action) {
+							case 'G': xCoordinate--;
 								break;
-							case 'L':
-								direction = "SOUTH";
+							case 'L': currentDirection = "SOUTH";
 								break;
-							case 'R':
-								direction = "NORTH";
+							case 'R': currentDirection = "NORTH";
 								break;
+							default: System.out.println("Invalid Action");
 						}
 						break;
+					default: System.out.println("Invalid direction");
 				}
 			}
 
-			if(direction.equals("NORTH") && ((xCoordinate * xCoordinate) + (yCoordinate * yCoordinate) > 0))
+			if(currentDirection.equals("NORTH") && ((xCoordinate * xCoordinate) + (yCoordinate * yCoordinate) > 0))
 				answer.add("NO");
 			else
 				answer.add("YES");
 		}
 		return answer;
 	}
+
+	//leetcode 640
+	public String solveEquation(String equation) {
+		return null;
+	}
+
 }
