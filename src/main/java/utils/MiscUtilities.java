@@ -236,7 +236,7 @@ public class MiscUtilities {
 							default: System.out.println("Invalid Action");
 						}
 						break;
-					default: System.out.println("Invalid direction");
+					default: System.out.println("Invalid vdirection");
 				}
 			}
 
