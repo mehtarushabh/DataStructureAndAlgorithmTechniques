@@ -233,7 +233,7 @@ public class MiscUtilities {
 								break;
 							case 'R': currentDirection = "NORTH";
 								break;
-							default: System.out.println("Invalid Action");
+							default: System.out.println("Invalidd Action");
 						}
 						break;
 					default: System.out.println("Invalid vdirection");
