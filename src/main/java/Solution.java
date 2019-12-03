@@ -31,7 +31,7 @@ public class Solution {
 		orders.add("fp kindle book");
 		orders.add("10a echo show");
 		orders.add("17g 12 25 6");
-		orders.add("ab1 kindle book");
+		orders.add("ab1 kindle bookd");
 		orders.add("125 echo dot second generation");
 		m.prioritizedOrders(6, orders);
 	}
